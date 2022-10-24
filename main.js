@@ -9,4 +9,4 @@ let cadastroClientes = require('./clientes')
 
 //cadastroClientes.inserir({matricula: 12345, nome: "Guilherme Guimarães", telefone: "999-999-999"});
 //cadastroClientes.listar();
-cadastroClientes.locarLivro(12345, {disponibilidade: 'f'}, 1234567894565, 1);
+cadastroClientes.locarLivro(1, 12345, {disponibilidade: 'f'}, 1234567894565);
