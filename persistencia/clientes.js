@@ -39,12 +39,11 @@ async function locarLivro(qtdlivros, matricula, disp, isbn){
     const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [disp.disponibilidade, isbn]);
     const cliente = await user.query("UPDATE clientes SET qtdlivros = $1 WHERE matricula = $2", [qtdlivros.qtdlivros, matricula]);//eSTE COMANDO ESTÁ DANDO ERRO
     //CRIAR UM COMANDO PARA MANDAR A DATA DE LOCAÇÃO PARA A TABELA LOCACAO PEGANDO O DIA DE HJ USANDO A FUNÇÃO NEW DATE(), PRECISA CRIAR A COLUNA DATA DE DEVOLUÇÃO;
-    const date = new Date();
-    const data = date.getDate();
-    const mes = date.getMonth();// este método retorna os meses com a contagem de 0 a 11, então precisamos somar 1 ao resultado
-    console.log(`Livro locado, devolução na data: ${data+7}/${mes+1}`)
     
-
+    const date = new Date();
+    date.setDate(date.getDate() + 10)
+    console.log(`Livro locado, devolução na data: ${date}`)
+    
     await user.end();
 }
 
