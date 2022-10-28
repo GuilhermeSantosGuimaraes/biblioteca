@@ -34,8 +34,9 @@ async function locarLivro(qtdlivros, matricula, disp, isbn){
     const user = new Client(conexao);
 
     await user.connect();
-    //VER COM O PROFESSOR SE ÉSTA É A MELHOR SOLUÇÃO 
-    const sql = await user.query("INSERT INTO locacao(SELECT nome, titulo FROM clientes, livros WHERE clientes.matricula = $1 and livros.isbn = $2)", [matricula, isbn]);
+    //NÃO ESTA COMPLETO
+    const sql = await user.query("INSERT INTO locacao(locador, livro, fk_matricula, fk_isbn) VALUES(SELECT clientes.matricula, livros.isbn FROM clientes, livros JOIN locacao ON locacao.locador = clientes.nome JOIN locacao on locaco.livro = livros.titulo)", 
+                                    [matricula, isbn]);
     const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [disp.disponibilidade, isbn]);
     const cliente = await user.query("UPDATE clientes SET qtdlivros = $1 WHERE matricula = $2", [qtdlivros.qtdlivros, matricula]);//eSTE COMANDO ESTÁ DANDO ERRO
     //CRIAR UM COMANDO PARA MANDAR A DATA DE LOCAÇÃO PARA A TABELA LOCACAO PEGANDO O DIA DE HJ USANDO A FUNÇÃO NEW DATE(), PRECISA CRIAR A COLUNA DATA DE DEVOLUÇÃO;
