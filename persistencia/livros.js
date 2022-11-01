@@ -1,13 +1,6 @@
 
 const { Client } = require('pg');
-
-const conexao = {
-    host: "localhost",
-    port: 5432,
-    user: "postgres",
-    password: "123456789",
-    database: "biblioteca"
-}
+const { conexao } = require('./conexao.js')
 
 async function inserir(livro){
     const cliente = new Client(conexao);
