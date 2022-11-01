@@ -43,7 +43,11 @@ async function locarLivro(qtdlivros, matricula, disp, isbn){
     
     const date = new Date();
     date.setDate(date.getDate() + 10)
-    console.log(`Livro locado, devolução na data: ${date}`)
+    console.log(`Livro locado, devolução na data: ${date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    })}`)
     
     await user.end();
 }
