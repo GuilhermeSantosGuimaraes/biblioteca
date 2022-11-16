@@ -48,13 +48,13 @@ async function locarLivro(qtdlivros, matricula, disp, isbn){
 }
 
 async function atualizar(matricula, cliente){
-    const cliente = new Client(conexao);
+    const user = new Client(conexao);
 
-    await cliente.connect();
+    await user.connect();
 
     const sql = await cliente.query("UPDATE clientes SET matricula = $1, nome = $2, telefone = $3 WHERE matricula = $2 RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone, matricula]);
 
-    await cliente.end();
+    await user.end();
 
     return sql.rows[0];
 }

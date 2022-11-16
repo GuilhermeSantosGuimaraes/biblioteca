@@ -74,7 +74,7 @@ async function deletar(isbn){
 }
 
 module.exports = {
-    inserir,  buscarPorAutor, buscarPorNome, atualizar, buscarPorDisponibilidade
+    inserir,  buscarPorAutor, buscarPorNome, atualizar, buscarPorDisponibilidade, deletar
 }
 
 

@@ -24,6 +24,9 @@ async function main(){
     const atualizar = await cadastroLivros.atualizar({disponibilidade: 't'}, 1234567894565);
     console.log(`Informações do livro {$atualizar.nome} atualizadas`)
 
+    const deletar = await cadastroLivros.deletar(1234567894565);
+    console.log(`Informações do livro {$deletar.nome} atualizadas`)
+
     //Clientes
     try{
         const clienteInserido = await cadastroClientes.inserir({matricula: 12345, nome: "Guilherme Guimarães", telefone: "999-999-999"});
@@ -35,3 +38,5 @@ async function main(){
     const buscar = await cadastroClientes.listar();
     console.log(`Clientes: {$buscar}`)
 }
+
+main();
