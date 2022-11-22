@@ -26,16 +26,16 @@ async function listar(){
     return sql.rows;
 }
 
-async function locarLivro(qtdlivros, matricula, disp, isbn){
+async function locarLivro(locacao, isbn){
     const user = new Client(conexao);
 
     await user.connect();
-    //NÃO ESTA COMPLETO
-    const sql = await user.query("INSERT INTO locacao(locador, livro, fk_matricula, fk_isbn) VALUES(SELECT clientes.matricula, livros.isbn FROM clientes, livros JOIN locacao ON locacao.locador = clientes.nome JOIN locacao on locaco.livro = livros.titulo)", 
-                                    [matricula, isbn]);
-    const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [disp.disponibilidade, isbn]);
-    const cliente = await user.query("UPDATE clientes SET qtdlivros = $1 WHERE matricula = $2", [qtdlivros.qtdlivros, matricula]);
     
+    const sql = await user.query("INSERT INTO locacao(locador, livro, datadevolucao) VALUES($1, $2, $3)",[locacao.locador, locacao.livro, locacao.datadevolucao]);
+    const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [locacao.disponibilidade, isbn]);
+    
+    
+
     const date = new Date();
     date.setDate(date.getDate() + 10)
     console.log(`Livro locado, devolução na data: ${date.toLocaleDateString('pt-BR', {
@@ -43,7 +43,21 @@ async function locarLivro(qtdlivros, matricula, disp, isbn){
         month: '2-digit',
         year: 'numeric',
     })}`)
+
+    let data = JSON.Date(date);
+
+    module.exports = data;
     
+    await user.end();
+}
+
+async function atualizarQtdLivros(matricula, qtdlivros){
+    const user = new Client(conexao);
+
+    await user.connect();
+
+    const cliente = await user.query("UPDATE clientes SET qtdlivros = $1 WHERE matricula = $2", [qtdlivros.qtdlivros, matricula]);
+
     await user.end();
 }
 
@@ -73,5 +87,5 @@ async function deletar(matricula){
 
 
 module.exports = {
-    inserir, listar, locarLivro
+    inserir, listar, atualizar, deletar
 }

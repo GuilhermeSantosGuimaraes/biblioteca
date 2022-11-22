@@ -1,9 +1,12 @@
 let cadastroLivros = require('./persistencia/livros')
-let cadastroClientes = require('./persistencia/clientes')
+let cadastroClientes = require('./persistencia/clientes');
+const date = require('./persistencia/clientes');
+const data = require('./persistencia/clientes');
 
 //cadastroClientes.locarLivro({qtdlivros: 1}, 12345, {disponibilidade: 'f'}, 1234567894565);
 
 async function main(){
+    /*
     //Livros
     try{
         const livroInserido = await cadastroLivros.inserir({isbn: 1234567891510, titulo: 'Flores para Algernon', anopubli: '2018-07-23', editora: 'Aleph', autor: 'Daniel'})
@@ -36,7 +39,9 @@ async function main(){
     }
 
     const buscar = await cadastroClientes.listar();
-    console.log(`Clientes: {$buscar}`)
+    console.log(`Clientes: {$buscar}`)*/
+
+    const locar = await cadastroClientes.locarLivro({locador: "Daniel", livro: 'Flores para Algernon', datadevolucao: data}, {disponibilidade: 'f'}, 1234567891510)
 }
 
 main();
