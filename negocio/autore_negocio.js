@@ -1,7 +1,7 @@
 const autoresPersistencia = require('../persistencia/autores');
 
 async function inserir(autores) {
-    if (autores && autores.matricula && autores.nome && autores.telefone && autores.qtdlivros) {
+    if (autores && autores.nome && autores.paisorigem) {
         const autoresInserido = await autoresPersistencia.inserir(autores);
         return autoresInserido;
     } else {
@@ -21,17 +21,17 @@ async function buscarPorId(id) {
             mensagem : "Digite a matricula do autores que quer buscar"
         };
     }
-    return await autoresPersistencia.buscarPorid(id);
+    return await autoresPersistencia.buscarPorId(id);
 }
 
 async function atualizar(id, autores) {
-    const autoresAtualizar = await buscarPorid(id);
+    const autoresAtualizar = await buscarPorId(id);
     if (autoresAtualizar) 
-        return await autoresPersistencia.atualizar(id, autores);
+        return await autoresPersistencia.atualizar(autores, id);
 }
 
 async function deletar(id) {
-    const autoresDeletar = await buscarPorid(id);
+    const autoresDeletar = await buscarPorId(id);
     if (autoresDeletar) 
         return await autoresPersistencia.deletar(id);
 }

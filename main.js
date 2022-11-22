@@ -115,9 +115,10 @@ async function main() {
     console.log("Autores:", buscarAutores)
 
     try {
-        const atualizar = await cadastroAutores.atualizar({
-            nome: "Guilherme Guimarães"
-        }, 1);
+        const atualizar = await cadastroAutores.atualizar(1,{
+            nome: "Guilherme Guimarães",
+            paisorigem: "Eua"
+        });
         console.log("Informações do Autor atualizadas")
     } catch (err) {
         console.log("Erro", err);
