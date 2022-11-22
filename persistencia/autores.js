@@ -7,7 +7,7 @@ async function inserir(autores) {
 
     await user.connect();
 
-    const sql = await user.query("INSERT INTO autores(nome, paisorigem) VALUES($1, $2) RETURNING", [autores.nome, autores.paisorigem]);
+    const sql = await user.query("INSERT INTO autores(nome, paisorigem) VALUES($1, $2) RETURNING*", [autores.nome, autores.paisorigem]);
 
     await user.end();
 
@@ -43,7 +43,7 @@ async function atualizar(autores, id) {
 
     await user.connect();
 
-    const sql = await user.query("UPDATE autores SET nome = $1, paisorigem = $2 WHERE id = $3 RETURNING", [autores.nome, autores.paisorigem, id]);
+    const sql = await user.query("UPDATE autores SET nome = $1, paisorigem = $2 WHERE id = $3 RETURNING*", [autores.nome, autores.paisorigem, id]);
 
     await user.end();
 
@@ -55,7 +55,7 @@ async function deletar(id) {
 
     await user.connect();
 
-    const sql = await user.query('DELETE FROM autores WHERE id = $1 RETURNING', [id]);
+    const sql = await user.query('DELETE FROM autores WHERE id = $1 RETURNING* ', [id]);
 
     await user.end();
 
