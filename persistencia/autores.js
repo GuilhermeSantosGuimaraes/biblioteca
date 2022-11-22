@@ -1,8 +1,8 @@
-const { Client } = require('pg');
-const { conexao } = require('./conexao.js')
+const {Client} = require('pg');
+const {conexao} = require('./conexao.js')
 
 
-async function inserir(autores){
+async function inserir(autores) {
     const user = new Client(conexao);
 
     await user.connect();
@@ -14,7 +14,7 @@ async function inserir(autores){
     return sql.rows[0];
 }
 
-async function listar(){
+async function listar() {
     const user = new Client(conexao);
 
     await user.connect();
@@ -27,7 +27,7 @@ async function listar(){
 }
 
 
-async function atualizar(autores, id){
+async function atualizar(autores, id) {
     const user = new Client(conexao);
 
     await user.connect();
@@ -39,12 +39,12 @@ async function atualizar(autores, id){
     return sql.rows[0];
 }
 
-async function deletar(id){
+async function deletar(id) {
     const user = new Client(conexao)
 
     await user.connect();
 
-    const sql = await user.query('DELETE FROM autores WHERE id = $1 RETURNING',[id]);
+    const sql = await user.query('DELETE FROM autores WHERE id = $1 RETURNING', [id]);
 
     await user.end();
 
@@ -53,5 +53,8 @@ async function deletar(id){
 
 
 module.exports = {
-    inserir, listar, deletar, atualizar
+    inserir,
+    listar,
+    deletar,
+    atualizar
 }

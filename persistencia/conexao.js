@@ -6,4 +6,6 @@ const conexao = {
     database: "biblioteca"
 }
 
-module.exports = {conexao};
+module.exports = {
+    conexao
+};

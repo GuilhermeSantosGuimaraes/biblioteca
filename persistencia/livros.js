@@ -28,7 +28,7 @@ async function buscarPorAutor(autor) {
 
     await cliente.end();
 
-    return sql.rows[0];
+    return sql.rows;
 }
 
 async function buscarPorNome(livro) {
@@ -36,11 +36,11 @@ async function buscarPorNome(livro) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("SELECT * FROM livros WHERE nome = $1", [livro]);
+    const sql = await cliente.query("SELECT * FROM livros WHERE titulo = $1", [livro]);
 
     await cliente.end();
 
-    return sql.rows[0];
+    return sql.rows;
 }
 
 async function buscarPorDisponibilidade(livro) {
@@ -52,7 +52,7 @@ async function buscarPorDisponibilidade(livro) {
 
     await cliente.end();
 
-    return sql.rows[0];
+    return sql.rows;
 }
 
 async function atualizar(livro, disp) {

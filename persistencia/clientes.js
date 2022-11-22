@@ -7,7 +7,7 @@ async function inserir(cliente) {
 
     await user.connect();
 
-    const sql = await user.query("INSERT INTO clientes(matricula, nome, telefone) VALUES($1, $2, $3) RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone]);
+    const sql = await user.query("INSERT INTO clientes(matricula, nome, telefone, qtdlivros) VALUES($1, $2, $3, $4) RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone, cliente.qtdlivros]);
 
     await user.end();
 
@@ -31,25 +31,33 @@ async function locarLivro(locacao, isbn, matricula) {
 
     await user.connect();
 
-    const sql = await user.query("INSERT INTO locacao(locador, livro, datadevolucao) VALUES($1, $2, $3)", [locacao.locador, locacao.livro, locacao.datadevolucao]);
-    const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [locacao.disponibilidade, isbn]);
-    const cliente = await user.query("UPDATE clientes SET qtdLivros = $1 WHERE matricula = $2", [locacao.qtdLivros, matricula]);
+    const sql = await user.query("INSERT INTO locacao(locador, livro, datadevolucao) VALUES($1, $2, $3) RETURNING*", [locacao.locador, locacao.livro, locacao.datadevolucao]);
+    const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2 RETURNING*", [locacao.disponibilidade, isbn]);
+    const cliente = await user.query("UPDATE clientes SET qtdLivros = $1 WHERE matricula = $2 RETURNING*", [locacao.qtdLivros, matricula]);
 
     const date = new Date();
-    date.setDate(date.getDate() + 10)
-    console.log(`Livro locado, devolução na data: ${
-        date.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        })
-    }`)
-
-    module.exports = date;
-
+            date.setDate(date.getDate() + 10)
+            console.log(`Livro locado, devolução na data: ${
+                date.toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })
+            }`)
     await user.end();
 }
 
+async function devolucao(nome, titulo){
+    const cliente = new Client(conexao)
+
+    await cliente.connect();
+
+    const sql = await cliente.query('DELETE FROM locacao WHERE locador=$1 AND livro=$2 RETURNING *', [nome, titulo]);
+
+    await cliente.end();
+
+    return sql.rows[0];
+}
 
 async function atualizar(matricula, cliente) {
     const user = new Client(conexao);
@@ -81,5 +89,6 @@ module.exports = {
     listar,
     atualizar,
     deletar,
-    locarLivro
+    locarLivro,
+    devolucao
 }
