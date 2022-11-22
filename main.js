@@ -1,13 +1,12 @@
 let cadastroLivros = require('./persistencia/livros')
 let cadastroClientes = require('./persistencia/clientes');
 const date = require('./persistencia/clientes');
-const data = require('./persistencia/clientes');
 
-//cadastroClientes.locarLivro({qtdlivros: 1}, 12345, {disponibilidade: 'f'}, 1234567894565);
+// cadastroClientes.locarLivro({qtdlivros: 1}, 12345, {disponibilidade: 'f'}, 1234567894565);
 
-async function main(){
+async function main() {
+    // Livros
     /*
-    //Livros
     try{
         const livroInserido = await cadastroLivros.inserir({isbn: 1234567891510, titulo: 'Flores para Algernon', anopubli: '2018-07-23', editora: 'Aleph', autor: 'Daniel'})
         console.log(`Livro {$livroInserido.nome} inserido com sucesso`)
@@ -41,7 +40,14 @@ async function main(){
     const buscar = await cadastroClientes.listar();
     console.log(`Clientes: {$buscar}`)*/
 
-    const locar = await cadastroClientes.locarLivro({locador: "Daniel", livro: 'Flores para Algernon', datadevolucao: data}, {disponibilidade: 'f'}, 1234567891510)
+
+    const locar = await cadastroClientes.locarLivro({
+        locador: "Daniel",
+        livro: 'Flores para Algernon',
+        datadevolucao: date,
+        disponibilidade: 0,
+        qtdLivros: 1
+    }, 1234567891510, 12345)
 }
 
 main();

@@ -53,5 +53,5 @@ async function deletar(id){
 
 
 module.exports = {
-    inserir, listar, deletar, atualizar 
+    inserir, listar, deletar, atualizar
 }

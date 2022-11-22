@@ -1,8 +1,8 @@
-const { Client } = require('pg');
-const { conexao } = require('./conexao.js')
+const {Client} = require('pg');
+const {conexao} = require('./conexao.js')
 
 
-async function inserir(cliente){
+async function inserir(cliente) {
     const user = new Client(conexao);
 
     await user.connect();
@@ -14,7 +14,7 @@ async function inserir(cliente){
     return sql.rows[0];
 }
 
-async function listar(){
+async function listar() {
     const user = new Client(conexao);
 
     await user.connect();
@@ -26,42 +26,32 @@ async function listar(){
     return sql.rows;
 }
 
-async function locarLivro(locacao, isbn){
+async function locarLivro(locacao, isbn, matricula) {
     const user = new Client(conexao);
 
     await user.connect();
-    
-    const sql = await user.query("INSERT INTO locacao(locador, livro, datadevolucao) VALUES($1, $2, $3)",[locacao.locador, locacao.livro, locacao.datadevolucao]);
+
+    const sql = await user.query("INSERT INTO locacao(locador, livro, datadevolucao) VALUES($1, $2, $3)", [locacao.locador, locacao.livro, locacao.datadevolucao]);
     const livro = await user.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2", [locacao.disponibilidade, isbn]);
-    
-    
+    const cliente = await user.query("UPDATE clientes SET qtdLivros = $1 WHERE matricula = $2", [locacao.qtdLivros, matricula]);
 
     const date = new Date();
     date.setDate(date.getDate() + 10)
-    console.log(`Livro locado, devolução na data: ${date.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-    })}`)
+    console.log(`Livro locado, devolução na data: ${
+        date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        })
+    }`)
 
-    let data = JSON.Date(date);
-
-    module.exports = data;
-    
-    await user.end();
-}
-
-async function atualizarQtdLivros(matricula, qtdlivros){
-    const user = new Client(conexao);
-
-    await user.connect();
-
-    const cliente = await user.query("UPDATE clientes SET qtdlivros = $1 WHERE matricula = $2", [qtdlivros.qtdlivros, matricula]);
+    module.exports = date;
 
     await user.end();
 }
 
-async function atualizar(matricula, cliente){
+
+async function atualizar(matricula, cliente) {
     const user = new Client(conexao);
 
     await user.connect();
@@ -73,12 +63,12 @@ async function atualizar(matricula, cliente){
     return sql.rows[0];
 }
 
-async function deletar(matricula){
+async function deletar(matricula) {
     const cliente = new Client(conexao)
 
     await cliente.connect();
 
-    const sql = await cliente.query('DELETE FROM clientes WHERE matricula=$1 RETURNING *',[matricula]);
+    const sql = await cliente.query('DELETE FROM clientes WHERE matricula=$1 RETURNING *', [matricula]);
 
     await cliente.end();
 
@@ -87,5 +77,9 @@ async function deletar(matricula){
 
 
 module.exports = {
-    inserir, listar, atualizar, deletar
+    inserir,
+    listar,
+    atualizar,
+    deletar,
+    locarLivro
 }

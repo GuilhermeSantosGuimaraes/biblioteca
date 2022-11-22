@@ -1,21 +1,27 @@
+const {Client} = require('pg');
+const {conexao} = require('./conexao.js')
 
-const { Client } = require('pg');
-const { conexao } = require('./conexao.js')
-
-async function inserir(livro){
+async function inserir(livro) {
     const cliente = new Client(conexao);
 
     await cliente.connect();
 
-    const sql = await cliente.query("INSERT INTO livros(isbn, titulo, editora, autor, anopubli) VALUES($1, $2, $3, $4, $5) RETURNING*", [livro.isbn, livro.titulo, livro.editora, livro.autor, livro.anopubli]);
+    const sql = await cliente.query("INSERT INTO livros(isbn, titulo, editora, autor, anopubli, disponibilidade) VALUES($1, $2, $3, $4, $5, $6) RETURNING*", [
+        livro.isbn,
+        livro.titulo,
+        livro.editora,
+        livro.autor,
+        livro.anopubli,
+        livro.disponibilidade
+    ]);
 
     await cliente.end();
     return sql.rows[0];
 }
 
-async function buscarPorAutor(autor){
+async function buscarPorAutor(autor) {
     const cliente = new Client(conexao);
-    
+
     await cliente.connect();
 
     const sql = await cliente.query("SELECT * FROM livros WHERE autor = $1", [autor]);
@@ -25,7 +31,7 @@ async function buscarPorAutor(autor){
     return sql.rows[0];
 }
 
-async function buscarPorNome(livro){
+async function buscarPorNome(livro) {
     const cliente = new Client(conexao);
 
     await cliente.connect();
@@ -37,7 +43,7 @@ async function buscarPorNome(livro){
     return sql.rows[0];
 }
 
-async function buscarPorDisponibilidade(livro){
+async function buscarPorDisponibilidade(livro) {
     const cliente = new Client(conexao);
 
     await cliente.connect();
@@ -49,7 +55,7 @@ async function buscarPorDisponibilidade(livro){
     return sql.rows[0];
 }
 
-async function atualizar(livro, disp){
+async function atualizar(livro, disp) {
     const cliente = new Client(conexao);
 
     await cliente.connect();
@@ -61,12 +67,12 @@ async function atualizar(livro, disp){
     return sql.rows[0];
 }
 
-async function deletar(isbn){
+async function deletar(isbn) {
     const cliente = new Client(conexao)
 
     await cliente.connect();
 
-    const sql = await cliente.query('DELETE FROM livros WHERE isbn=$1 RETURNING *',[isbn]);
+    const sql = await cliente.query('DELETE FROM livros WHERE isbn=$1 RETURNING *', [isbn]);
 
     await cliente.end();
 
@@ -74,7 +80,10 @@ async function deletar(isbn){
 }
 
 module.exports = {
-    inserir,  buscarPorAutor, buscarPorNome, atualizar, buscarPorDisponibilidade, deletar
+    inserir,
+    buscarPorAutor,
+    buscarPorNome,
+    atualizar,
+    buscarPorDisponibilidade,
+    deletar
 }
-
-
