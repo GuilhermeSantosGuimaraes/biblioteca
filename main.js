@@ -1,11 +1,10 @@
 let cadastroLivros = require('./negocio/livro_negocio')
-let cadastroClientes = require('./persistencia/clientes');
-const data = require('./persistencia/clientes');
+let cadastroClientes = require('./negocio/cliente_negocio')
+let cadastroLocacao = require('./persistencia/clientes')
+let cadastroAutores = require('./persistencia/autores')
 
-// cadastroClientes.locarLivro({qtdlivros: 1}, 12345, {disponibilidade: 'f'}, 1234567894565);
-
-async function main() { // Livros
-/*
+async function main() {
+    // Livros
     const livroInserido = await cadastroLivros.inserir({
         isbn: 1234567891510,
         titulo: 'Flores para Algernon',
@@ -17,7 +16,7 @@ async function main() { // Livros
     console.log(`Livro ${
         livroInserido.titulo
     } inserido com sucesso`)
-*/
+
     try{
         const buscarAutor = await cadastroLivros.buscarPorAutor('Daniel');
         console.log("Títulos:", buscarAutor)
@@ -38,28 +37,42 @@ async function main() { // Livros
     }catch(err){
         console.log("Erro", err);
     }
-/*
-    const atualizar = await cadastroLivros.atualizar({
-        disponibilidade: 'f'
-    }, 1234567891510);
-    console.log(`Informações do livro ${atualizar.titulo} atualizadas`)
-
-    const deletar = await cadastroLivros.deletar(1234567891510);
-    console.log(`Livro ${deletar.titulo} deletado`)
-*/
-    // Clientes
-    /*
+ 
     try {
-        const clienteInserido = await cadastroClientes.inserir({matricula: 12345, nome: "Guilherme Guimarães", telefone: "999-999-999", qtdlivros: 0});
-        console.log(`Livro ${clienteInserido.nome} inserido com sucesso`)
+        const atualizar = await cadastroLivros.atualizar({
+            isbn: 1234567891510,
+            titulo: 'Flores para Algernon',
+            anopubli: '2018-07-23',
+            editora: 'Aleph',
+            autor: 'Daniel',
+            disponibilidade: 'false'
+        }, 1234567891510);
+        console.log("Informações do livro atualizadas")
+    } catch (err) {
+        console.log("Erro", err);
+    }
+
+    try {
+        const deletar = await cadastroLivros.deletar(1234567891510);
+        console.log("Livro", deletar.titulo + " deletado")
+    } catch (err) {
+        console.log("Erro", err);
+    }
+    
+    // Clientes
+    try {
+        const clienteInserido = await cadastroClientes.inserir({matricula: 12341, nome: "Renato Guimarães", telefone: "999-999-999", qtdlivros: 0});
+        console.log(`Livro ${
+            clienteInserido.nome
+        } inserido com sucesso`)
     } catch (err) {
         console.log(err);
     }
 
     const buscar = await cadastroClientes.listar();
     console.log("Clientes:", buscar)
-
-    const locar = await cadastroClientes.locarLivro({
+    
+    const locar = await cadastroLocacao.locarLivro({
         locador: "Daniel",
         livro: 'Flores para Algernon',
         datadevolucao: '02/12/2022',
@@ -67,9 +80,55 @@ async function main() { // Livros
         qtdLivros: 1
     }, 1234567891510, 12346)
 
-    const devolver = await cadastroClientes.devolucao('Daniel', 'Flores para Algernon')
+    const devolver = await cadastroLocacao.devolucao('Daniel', 'Flores para Algernon')
     console.log(`Livro devolvido`)
-*/
+
+    try {
+        const atualizar = await cadastroLivros.atualizar({
+            matricula: 12345,
+            nome: "Guilherme Guimarães",
+            telefone: "999-999-888"
+        }, 12345);
+        console.log("Informações do Cliente atualizadas")
+    } catch (err) {
+        console.log("Erro", err);
+    }
+
+    try {
+        const deletar = await cadastroLivros.deletar(12345);
+        console.log("Livro", deletar.titulo + " deletado")
+    } catch (err) {
+        console.log("Erro", err);
+    }
+
+    //Autores
+    try {
+        const autorInserido = await cadastroAutores.inserir({nome: "Fernando", paisorigem: "Brasil"});
+        console.log(`Autor ${
+            autorInserido.nome
+        } inserido com sucesso`)
+    } catch (err) {
+        console.log(err);
+    }
+
+    const buscarAutores = await cadastroAutores.listar();
+    console.log("Autores:", buscarAutores)
+
+    try {
+        const atualizar = await cadastroAutores.atualizar({
+            nome: "Guilherme Guimarães"
+        }, 1);
+        console.log("Informações do Autor atualizadas")
+    } catch (err) {
+        console.log("Erro", err);
+    }
+
+    try {
+        const deletar = await cadastroAutores.deletar(1);
+        console.log("Autor deletado")
+    } catch (err) {
+        console.log("Erro", err);
+    }
 }
 
 main();

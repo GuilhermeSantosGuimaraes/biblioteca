@@ -1,9 +1,8 @@
-const {validarLivro} = require("./validacao");
-const livroPresistencia = require("../persistencia/livros");
+const livroPersistencia = require("../persistencia/livros");
 
 async function inserir(livro) {
     if (livro && livro.isbn && livro.titulo && livro.editora && livro.autor && livro.anopubli && livro.disponibilidade) {
-        const livroInserido = await livroPresistencia.inserir(livro);
+        const livroInserido = await livroPersistencia.inserir(livro);
         return livroInserido;
     } else {
         throw {
@@ -13,7 +12,7 @@ async function inserir(livro) {
 }
 
 async function listar() {
-    return await livroPresistencia.listar();
+    return await livroPersistencia.listar();
 }
 
 async function buscarPorAutor(autor) {
@@ -22,7 +21,7 @@ async function buscarPorAutor(autor) {
             mensagem : "Digite o autor que quer buscar"
         };
     }
-    return await livroPresistencia.buscarPorAutor(autor);
+    return await livroPersistencia.buscarPorAutor(autor);
 }
 
 async function buscarPorNome(nome) {
@@ -31,7 +30,7 @@ async function buscarPorNome(nome) {
             mensagem : "Digite o nome do livro que quer buscar"
         };
     }
-    return await livroPresistencia.buscarPorNome(nome);
+    return await livroPersistencia.buscarPorNome(nome);
 }
 
 async function buscarPorDisponibilidade(disp) {
@@ -40,7 +39,7 @@ async function buscarPorDisponibilidade(disp) {
             mensagem : "Digite a disponibilidade do livro que quer buscar"
         };
     }
-    return await livroPresistencia.buscarPorDisponibilidade(disp);
+    return await livroPersistencia.buscarPorDisponibilidade(disp);
 }
 
 async function buscarPorISBN(isbn) {
@@ -49,25 +48,20 @@ async function buscarPorISBN(isbn) {
             mensagem : "Digite o isbn do livro que quer buscar"
         };
     }
-    return await livroPresistencia.buscarPorISBN(isbn);
+    return await livroPersistencia.buscarPorISBN(isbn);
 }
 
-async function atualizar(isbn, livro) {
-    if (validarLivro(livro)) {
-        const livroAtualizar = await buscarPorISBN(isbn);
+async function atualizar(livro, isbn) {
+    const livroAtualizar = await buscarPorISBN(isbn);
         if (livroAtualizar) 
-            return await livroPresistencia.atualizar(isbn, livro);  
-    } else {
-        throw {
-            mensagem : "Parametros Invalidos"
-        };
-    }
+            return await livroPersistencia.atualizar(livro, isbn);  
+    
 }
 
 async function deletar(isbn) {
     const livroDeletar = await buscarPorISBN(isbn);
     if(livroDeletar)
-        return await livroPresistencia.deletar(isbn);
+        return await livroPersistencia.deletar(isbn);
 }
 
 module.exports = {
@@ -76,6 +70,7 @@ module.exports = {
     buscarPorAutor,
     buscarPorNome,
     buscarPorDisponibilidade,
+    buscarPorISBN,
     atualizar,
     deletar
 };

@@ -19,13 +19,24 @@ async function listar() {
 
     await user.connect();
 
-    const sql = await user.query("SELECT FROM autores");
+    const sql = await user.query("SELECT * FROM autores");
 
     await user.end();
 
     return sql.rows;
 }
 
+async function buscarPorId(id) {
+    const cliente = new Client(conexao);
+
+    await cliente.connect();
+
+    const sql = await cliente.query("SELECT * FROM autores WHERE id = $1", [id]);
+
+    await cliente.end();
+
+    return sql.rows;
+}
 
 async function atualizar(autores, id) {
     const user = new Client(conexao);
@@ -55,6 +66,7 @@ async function deletar(id) {
 module.exports = {
     inserir,
     listar,
+    buscarPorId,
     deletar,
     atualizar
 }

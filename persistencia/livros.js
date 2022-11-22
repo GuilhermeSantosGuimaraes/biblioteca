@@ -80,12 +80,20 @@ async function buscarPorISBN(livro) {
     return sql.rows;
 }
 
-async function atualizar(livro, disp) {
+async function atualizar(livro, isbn) {
     const cliente = new Client(conexao);
 
     await cliente.connect();
 
-    const sql = await cliente.query("UPDATE livros SET disponibilidade = $1 WHERE isbn = $2 RETURNING*", [livro.disponibilidade, disp]);
+    const sql = await cliente.query("UPDATE livros SET isbn = $1, titulo = $2, editora = $3, autor = $4, anopubli = $5, disponibilidade = $6 WHERE isbn = $7 RETURNING*", [
+        livro.isbn,
+        livro.titulo,
+        livro.editora,
+        livro.autor,
+        livro.anopubli,
+        livro.disponibilidade,
+        isbn
+    ]);
 
     await cliente.end();
 
