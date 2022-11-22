@@ -76,7 +76,7 @@ async function atualizar(matricula, cliente) {
 
     await user.connect();
 
-    const sql = await cliente.query("UPDATE clientes SET matricula = $1, nome = $2, telefone = $3 WHERE matricula = $4 RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone, matricula]);
+    const sql = await cliente.query("UPDATE clientes SET nome = $1, telefone = $2 WHERE matricula = $3 RETURNING*", [cliente.nome, cliente.telefone, matricula]);
 
     await user.end();
 

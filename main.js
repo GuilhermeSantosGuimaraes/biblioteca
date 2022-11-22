@@ -84,7 +84,7 @@ async function main() {
     console.log(`Livro devolvido`)
 
     try {
-        const atualizar = await cadastroLivros.atualizar({
+        const atualizar = await cadastroClientes.atualizar({
             matricula: 12345,
             nome: "Guilherme Guimarães",
             telefone: "999-999-888"
@@ -95,7 +95,7 @@ async function main() {
     }
 
     try {
-        const deletar = await cadastroLivros.deletar(12345);
+        const deletar = await cadastroClientes.deletar(12345);
         console.log("Livro", deletar.titulo + " deletado")
     } catch (err) {
         console.log("Erro", err);
