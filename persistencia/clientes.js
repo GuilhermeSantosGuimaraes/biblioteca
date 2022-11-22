@@ -36,14 +36,14 @@ async function locarLivro(locacao, isbn, matricula) {
     const cliente = await user.query("UPDATE clientes SET qtdLivros = $1 WHERE matricula = $2 RETURNING*", [locacao.qtdLivros, matricula]);
 
     const date = new Date();
-            date.setDate(date.getDate() + 10)
-            console.log(`Livro locado, devolução na data: ${
-                date.toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                })
-            }`)
+    date.setDate(date.getDate() + 10)
+    console.log(`Livro locado, devolução na data: ${
+        date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        })
+    }`)
     await user.end();
 }
 

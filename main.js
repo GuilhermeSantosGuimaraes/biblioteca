@@ -1,35 +1,44 @@
-let cadastroLivros = require('./persistencia/livros')
+let cadastroLivros = require('./negocio/livro_negocio')
 let cadastroClientes = require('./persistencia/clientes');
 const data = require('./persistencia/clientes');
 
 // cadastroClientes.locarLivro({qtdlivros: 1}, 12345, {disponibilidade: 'f'}, 1234567894565);
 
 async function main() { // Livros
-    /*
-    try {
-        const livroInserido = await cadastroLivros.inserir({
-            isbn: 1234567891510,
-            titulo: 'Flores para Algernon',
-            anopubli: '2018-07-23',
-            editora: 'Aleph',
-            autor: 'Daniel',
-            disponibilidade: 'true'
-        })
-        console.log(`Livro ${livroInserido.titulo} inserido com sucesso`)
-    } catch (err) {
-        console.log(err);
-    }
-*/
 /*
-    const buscarAutor = await cadastroLivros.buscarPorAutor('Daniel');
-    console.log(`Títulos: ${buscarAutor.titulo}`)
+    const livroInserido = await cadastroLivros.inserir({
+        isbn: 1234567891510,
+        titulo: 'Flores para Algernon',
+        anopubli: '2018-07-23',
+        editora: 'Aleph',
+        autor: 'Daniel',
+        disponibilidade: 'true'
+    })
+    console.log(`Livro ${
+        livroInserido.titulo
+    } inserido com sucesso`)
+*/
+    try{
+        const buscarAutor = await cadastroLivros.buscarPorAutor('Daniel');
+        console.log("Títulos:", buscarAutor)
+    }catch(err){
+        console.log("Erro", err);
+    }
+    
+    try{
+        const buscarNome = await cadastroLivros.buscarPorNome('Flores para Algernon');
+        console.log("Títulos:", buscarNome)
+    }catch(err){
+        console.log("Erro", err);
+    }
 
-    const buscarNome = await cadastroLivros.buscarPorNome('Flores para Algernon');
-    console.log(`Títulos: ${buscarNome.titulo}`)
-
-    const buscarDisponibilidade = await cadastroLivros.buscarPorDisponibilidade('t');
-    console.log(`Títulos: ${buscarDisponibilidade.titulo}`)
-
+    try{
+        const buscarDisponibilidade = await cadastroLivros.buscarPorDisponibilidade('true');
+        console.log("Títulos:", buscarDisponibilidade)
+    }catch(err){
+        console.log("Erro", err);
+    }
+/*
     const atualizar = await cadastroLivros.atualizar({
         disponibilidade: 'f'
     }, 1234567891510);
@@ -39,7 +48,7 @@ async function main() { // Livros
     console.log(`Livro ${deletar.titulo} deletado`)
 */
     // Clientes
-/*
+    /*
     try {
         const clienteInserido = await cadastroClientes.inserir({matricula: 12345, nome: "Guilherme Guimarães", telefone: "999-999-999", qtdlivros: 0});
         console.log(`Livro ${clienteInserido.nome} inserido com sucesso`)
@@ -53,13 +62,14 @@ async function main() { // Livros
     const locar = await cadastroClientes.locarLivro({
         locador: "Daniel",
         livro: 'Flores para Algernon',
-        datadevolucao: '01/12/2022',
+        datadevolucao: '02/12/2022',
         disponibilidade: 0,
         qtdLivros: 1
     }, 1234567891510, 12346)
-*/
+
     const devolver = await cadastroClientes.devolucao('Daniel', 'Flores para Algernon')
     console.log(`Livro devolvido`)
+*/
 }
 
 main();
