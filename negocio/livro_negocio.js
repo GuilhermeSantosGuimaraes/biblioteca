@@ -1,7 +1,7 @@
 const livroPersistencia = require("../persistencia/livros");
 
 async function inserir(livro) {
-    if (livro && livro.isbn && livro.titulo && livro.editora && livro.autor && livro.anopubli && livro.disponibilidade) {
+    if (livro && livro.isbn && livro.titulo && livro.editora && livro.idautor && livro.anopubli && livro.disponibilidade) {
         const livroInserido = await livroPersistencia.inserir(livro);
         return livroInserido;
     } else {
