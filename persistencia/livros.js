@@ -24,13 +24,13 @@ async function listar() {
 
     await user.connect();
 
-    const sql = await user.query("SELECT * FROM livros");
+    const sql = `SELECT livros.isbn, livros.titulo, livros.editora, livros.anopubli, livros.disponibilidade, autores.nome   
+                FROM livros
+                JOIN autores
+                ON livros.idautor = autores.id`;
 
     await user.end();
-
-    return sql.rows;
 }
-
 
 async function buscarPorAutor(autor) {
     const cliente = new Client(conexao);
