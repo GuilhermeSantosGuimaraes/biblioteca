@@ -69,7 +69,5 @@ module.exports = {
     listar,
     buscarPorMatricula,
     atualizar,
-    deletar,
-    locarLivro,
-    devolucao
+    deletar
 }
