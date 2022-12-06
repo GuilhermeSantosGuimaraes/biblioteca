@@ -2,7 +2,7 @@ const livroPersistencia = require("../persistencia/livros");
 const autorPersistencia = require("../persistencia/autores")
 
 async function inserir(livro) {
-    if (livro && livro.isbn && livro.titulo && livro.editora && livro.idautor && livro.anopubli && livro.disponibilidade) {
+    if (livro && livro.isbn && livro.titulo && livro.editora && livro.anopubli && livro.disponibilidade && livro.idautor) {
         const id = await autorPersistencia.buscarPorId(livro.idautor);
         if (id == livro.idautor) {
             const livroInserido = await livroPersistencia.inserir(livro);

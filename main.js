@@ -1,6 +1,6 @@
 let cadastroLivros = require('./negocio/livro_negocio')
 let cadastroClientes = require('./negocio/cliente_negocio')
-let cadastroLocacao = require('./persistencia/clientes')
+let cadastroLocacao = require('./negocio/locacao_negocio')
 let cadastroAutores = require('./negocio/autores_negocio')
 
 async function main() { // Livros
