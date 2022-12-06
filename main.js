@@ -1,22 +1,25 @@
 let cadastroLivros = require('./negocio/livro_negocio')
 let cadastroClientes = require('./negocio/cliente_negocio')
 let cadastroLocacao = require('./persistencia/clientes')
-let cadastroAutores = require('./persistencia/autores')
+let cadastroAutores = require('./negocio/autores_negocio')
 
-async function main() {
-    // Livros
-    const livroInserido = await cadastroLivros.inserir({
-        isbn: 1234567891510,
-        titulo: 'Flores para Algernon',
-        anopubli: '2018-07-23',
-        editora: 'Aleph',
-        autor: 'Daniel',
-        disponibilidade: 'true'
-    })
-    console.log(`Livro ${
-        livroInserido.titulo
-    } inserido com sucesso`)
-
+async function main() { // Livros
+    try {
+        const livroInserido = await cadastroLivros.inserir({
+            isbn: 1234567891654545,
+            titulo: 'Flores para Algernon',
+            anopubli: '2018-07-23',
+            editora: 'Aleph',
+            disponibilidade: 'true',
+            idautor: 2
+        })
+        console.log(`Livro ${
+            livroInserido.titulo
+        } inserido com sucesso`)
+    } catch (err) {
+        console.log("Erro", err);
+    }
+    /*
     try{
         const buscarAutor = await cadastroLivros.buscarPorAutor('Daniel');
         console.log("Títulos:", buscarAutor)
@@ -130,6 +133,7 @@ async function main() {
     } catch (err) {
         console.log("Erro", err);
     }
+*/
 }
 
 main();
