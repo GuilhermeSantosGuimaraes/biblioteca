@@ -1,28 +1,24 @@
 const locacaoPersistencia = require("../persistencia/locacao");
 
 async function locarLivro(locacao) {
-    if (locacao.matriculalocador && locacao.isbnlivro && locacao.datadevolucao) {
-        if (locacao.matriculalocador == cliente.matricula) {
-            if (locacao.isbnlivro == livro.isbn) {
-                const livroLocado = await locacaoPersistencia.locarLivro(locacao);
-                return livroLocado;
-            } else {
-                throw {
-                    mensagem : "ISBN não encontrado"
-                }
-            };
-        } else {
-            throw {
-                mensagem : "Matricula não encontrada"
-            }
-        };
-    } else {
-        throw {
-            mensagem : "Informações insuficientes"
-        }
-    };
+    const user = new Client(conexao);
 
+    await user.connect();
+
+    const sql = await user.query("INSERT INTO locacao(matriculalocador, isbnlivro, datadevolucao) VALUES($1, $2, $3) RETURNING*", [locacao.matriculalocador, locacao.isbnlivro, locacao.datadevolucao]);
+
+    const date = new Date();
+    date.setDate(date.getDate() + 10)
+    console.log(`Livro locado, devolução na data: ${
+        date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        })
+    }`)
+    await user.end();
 }
+
 module.exports = {
     locarLivro
 }

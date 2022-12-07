@@ -37,11 +37,11 @@ async function buscarPorAutor(autor) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("SELECT livro.isbn, livro.titulo, livro.editora, autor.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE autores.nome = $1", [autor]);
+    const sql = await cliente.query("SELECT livros.isbn, livros.titulo, livros.editora, autores.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE autores.nome = $1", [autor]);
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 async function buscarPorNome(livro) {
@@ -49,11 +49,11 @@ async function buscarPorNome(livro) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("SELECT livro.isbn, livro.titulo, livro.editora, autor.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.titulo = $1", [livro]);
+    const sql = await cliente.query("SELECT livros.isbn, livros.titulo, livros.editora, autores.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.titulo = $1", [livro]);
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 async function buscarPorDisponibilidade(livro) {
@@ -61,11 +61,11 @@ async function buscarPorDisponibilidade(livro) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("SELECT livro.isbn, livro.titulo, livro.editora, autor.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.disponibilidade = $1", [livro]);
+    const sql = await cliente.query("SELECT livros.isbn, livros.titulo, livros.editora, autores.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.disponibilidade = $1", [livro]);
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 async function buscarPorISBN(livro) {
@@ -73,11 +73,11 @@ async function buscarPorISBN(livro) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("SELECT livro.isbn, livro.titulo, livro.editora, autor.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.isbn = $1", [livro]);
+    const sql = await cliente.query("SELECT livros.isbn, livros.titulo, livros.editora, livros.disponibilidade, autores.nome FROM livros JOIN autores ON livros.idautor = autores.id WHERE livros.isbn = $1", [livro]);
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 async function atualizar(livro, isbn) {
