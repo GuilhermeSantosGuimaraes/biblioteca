@@ -16,18 +16,25 @@ async function listar() {
 }
 
 async function buscarPorId(id) {
-    if (! id) {
+    const autor = await autoresPersistencia.buscarPorId(id);
+    if (!id) {
         throw {
-            mensagem : "Digite a matricula do autores que quer buscar"
+            id: 404, mensagem : `ID ${id} não encontrado`
         };
     }
-    return await autoresPersistencia.buscarPorId(id);
+    return autor;
 }
 
 async function atualizar(id, autores) {
-    const autoresAtualizar = await buscarPorId(id);
-    if (autoresAtualizar) 
-        return await autoresPersistencia.atualizar(autores, id);
+    if (autores && autores.nome && autores.paisorigem){
+        const autoresAtualizar = await buscarPorId(id);
+        if (autoresAtualizar) 
+            return await autoresPersistencia.atualizar(autores, id);
+    }else{
+        throw{
+            id: 400, mensagem: "Informações insuficientes"
+        }
+    }
 }
 
 async function deletar(id) {
