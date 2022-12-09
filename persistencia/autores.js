@@ -35,7 +35,7 @@ async function buscarPorId(id) {
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 async function atualizar(autores, id) {
