@@ -6,7 +6,7 @@ async function inserir(autores) {
         return autoresInserido;
     } else {
         throw {
-            mensagem : "Informações insuficientes"
+            id:400, mensagem : "Informações insuficientes"
         };
     }
 }
