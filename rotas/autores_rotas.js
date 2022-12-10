@@ -9,4 +9,4 @@ rota.get('/:id', autoresController.buscarPorId);
 rota.put('/:id', autoresController.atualizar);
 rota.delete('/:id', autoresController.deletar);
 
-module.exports = rota
+module.exports = rota;
