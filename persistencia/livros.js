@@ -24,12 +24,25 @@ async function listar() {
 
     await user.connect();
 
-    const sql = `SELECT livros.isbn, livros.titulo, livros.editora, livros.anopubli, livros.disponibilidade, autores.nome   
+    const sql = `SELECT livros.isbn, livros.titulo, livros.editora, livros.anopubli, livros.disponibilidade, autores.nome as autores_nome   
                 FROM livros
                 JOIN autores
                 ON livros.idautor = autores.id`;
 
+    const res = await user.query(sql);
+    let listaLivros = res.rows.map(function (dados) {
+        return {
+            id: dados.isbn,
+            titulo: dados.titulo,
+            editora: dados.editora,
+            anopubli: dados.anopubli,
+            disponibilidade: dados.disponibilidade,
+            autor: dados.autores_nome
+        };
+    })
     await user.end();
+
+    return listaLivros;
 }
 
 async function buscarPorAutor(autor) {
