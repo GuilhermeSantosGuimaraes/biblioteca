@@ -35,7 +35,7 @@ async function listar() {
 
 async function buscarPorAutor(autor) {
     const livro = await livroPersistencia.buscarPorAutor(autor);
-    if (! autor) {
+    if (!autor) {
         throw {
             id : 404,
             mensagem : "Autor não cadastrado"
