@@ -24,7 +24,23 @@ async function inserir(req, res){
     }
 }
 
+async function buscarPorAutor(req, res){
+    const livro = req.params.autor;
+
+    try {
+        const livroAutor = await livroNegocio.buscarPorAutor(livro);
+        res.json(livroAutor);
+    } catch (err) {
+        if (err && err.id) {
+            res.status(err.id).json({Erro: err.mensagem})
+        } else {
+            res.status(500).json({Erro: "Erro na API"});
+        }
+    }
+}
+
 module.exports = {
     listar,
-    inserir
+    inserir,
+    buscarPorAutor
 }
