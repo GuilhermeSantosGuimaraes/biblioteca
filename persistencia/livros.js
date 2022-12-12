@@ -32,7 +32,7 @@ async function listar() {
     const res = await user.query(sql);
     let listaLivros = res.rows.map(function (dados) {
         return {
-            id: dados.isbn,
+            isbn: dados.isbn,
             titulo: dados.titulo,
             editora: dados.editora,
             anopubli: dados.anopubli,
