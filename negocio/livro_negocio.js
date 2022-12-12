@@ -46,7 +46,7 @@ async function buscarPorAutor(autor) {
 
 async function buscarPorNome(nome) {
     const livro = await livroPersistencia.buscarPorNome(nome);
-    if (! nome) {
+    if (!nome) {
         throw {
             id : 404,
             mensagem : "Livro não cadastrado"
@@ -57,7 +57,7 @@ async function buscarPorNome(nome) {
 
 async function buscarPorDisponibilidade(disp) {
     const livro = await livroPersistencia.buscarPorDisponibilidade(disp);
-    if (! disp) {
+    if (!disp) {
         throw {
             id : 404,
             mensagem : `Nenhum livro com disponibilidade igual a ${disp}`
