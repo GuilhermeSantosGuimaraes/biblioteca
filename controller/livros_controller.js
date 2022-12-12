@@ -95,7 +95,26 @@ async function atualizar(req, res){
         const livroAtualizado = await livroNegocio.atualizar(livro, isbn);
         res.status(201).res.json(livroAtualizado)
     } catch (err) {
-        
+        if (err && err.id) {
+            res.status(err.id).json({Erro: err.mensagem});
+        } else {
+            res.status(500).json({Erro: "Erro na API"});
+        }
+    }
+}
+
+async function deletar(req, res){
+    const isbn = req.params.isbn;
+    
+    try {
+        const livroDeletado = await livroNegocio.deletar(isbn);
+        res.json(`Livro ${livroDeletado.titulo} deletado`);
+    } catch (err) {
+        if (err && err.id) {
+            res.status(err.id).json({Erro: err.mensagem});
+        } else {
+            res.status(500).json({Erro: "Erro na API"});
+        }
     }
 }
 
@@ -106,4 +125,6 @@ module.exports = {
     buscarPorNome,
     buscarPorDisponibilidade,
     buscarPorISBN,
+    atualizar,
+    deletar
 }
