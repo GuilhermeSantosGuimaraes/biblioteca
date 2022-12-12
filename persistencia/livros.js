@@ -98,7 +98,7 @@ async function atualizar(livro, isbn) {
 
     await cliente.connect();
 
-    const sql = await cliente.query("UPDATE livros SET isbn = $1, titulo = $2, editora = $3, idautor = $4, anopubli = $5, disponibilidade = $6 WHERE isbn = $7 RETURNING*", [
+    const sql = await cliente.query("UPDATE livros SET isbn = $1, titulo = $2, editora = $3, anopubli = $4, disponibilidade = $5, idautor = $6 WHERE isbn = $7 RETURNING*", [
         livro.isbn,
         livro.titulo,
         livro.editora,
