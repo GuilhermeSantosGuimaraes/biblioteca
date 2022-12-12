@@ -6,10 +6,10 @@ async function inserir(livro) {
         const id = await autorPersistencia.buscarPorId(livro.idautor);
         if (id) {
             const isbn = await livroPersistencia.buscarPorISBN(livro.isbn);
-            if(!isbn){
+            if (! isbn) {
                 const livroInserido = await livroPersistencia.inserir(livro);
                 return livroInserido;
-            }else{
+            } else {
                 throw {
                     id: 400,
                     mensagem : "ISBN ja cadastrado"
@@ -35,7 +35,7 @@ async function listar() {
 
 async function buscarPorAutor(autor) {
     const livro = await livroPersistencia.buscarPorAutor(autor);
-    if (!autor) {
+    if (! autor) {
         throw {
             id : 404,
             mensagem : "Autor não cadastrado"
@@ -46,7 +46,7 @@ async function buscarPorAutor(autor) {
 
 async function buscarPorNome(nome) {
     const livro = await livroPersistencia.buscarPorNome(nome);
-    if (!nome) {
+    if (! nome) {
         throw {
             id : 404,
             mensagem : "Livro não cadastrado"
@@ -57,7 +57,7 @@ async function buscarPorNome(nome) {
 
 async function buscarPorDisponibilidade(disp) {
     const livro = await livroPersistencia.buscarPorDisponibilidade(disp);
-    if (!disp) {
+    if (! disp) {
         throw {
             id : 404,
             mensagem : `Nenhum livro com disponibilidade igual a ${disp}`
@@ -98,9 +98,15 @@ async function atualizar(livro, isbn) {
 
 async function deletar(isbn) {
     const livroDeletar = await buscarPorISBN(isbn);
-    if (livroDeletar) 
+    if (livroDeletar) {
         return await livroPersistencia.deletar(isbn);
-    
+    }else{
+        throw{
+            id:404,
+            mensagem: "Livro não cadastrado ou ja deletado"
+        }
+    }
+
 }
 
 module.exports = {
