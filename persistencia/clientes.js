@@ -7,7 +7,7 @@ async function inserir(cliente) {
 
     await user.connect();
 
-    const sql = await user.query("INSERT INTO clientes(matricula, nome, telefone, qtdlivros) VALUES($1, $2, $3, $4) RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone, cliente.qtdlivros]);
+    const sql = await user.query("INSERT INTO clientes(matricula, nome, telefone) VALUES($1, $2, $3) RETURNING*", [cliente.matricula, cliente.nome, cliente.telefone]);
 
     await user.end();
 
