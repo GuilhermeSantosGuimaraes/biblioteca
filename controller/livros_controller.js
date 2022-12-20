@@ -93,11 +93,12 @@ async function atualizar(req, res){
 
     try {
         const livroAtualizado = await livroNegocio.atualizar(livro, isbn);
-        res.status(201).res.json(livroAtualizado)
+        res.status(200).res.json(livroAtualizado)
     } catch (err) {
         if (err && err.id) {
             res.status(err.id).json({Erro: err.mensagem});
         } else {
+            console.log(err)
             res.status(500).json({Erro: "Erro na API"});
         }
     }

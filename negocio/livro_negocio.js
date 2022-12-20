@@ -6,7 +6,7 @@ async function inserir(livro) {
         const id = await autorPersistencia.buscarPorId(livro.idautor);
         if (id) {
             const isbn = await livroPersistencia.buscarPorISBN(livro.isbn);
-            if (! isbn) {
+            if (!isbn) {
                 const livroInserido = await livroPersistencia.inserir(livro);
                 return livroInserido;
             } else {

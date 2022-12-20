@@ -18,16 +18,25 @@ async function listar() {
 
     await user.connect();
 
-    const sql = `SELECT clientes.nome, livros.titulo, locacao.datadevolucao    
-                FROM clientes
-                JOIN autores
-                ON locacao.matriculalocador = clientes.matricula
+    const sql = `SELECT clientes.nome, livros.titulo, locacao.datadevolucao
+                FROM locacao
+                JOIN clientes
+                ON clientes.matricula = locacao.matriculalocador
                 JOIN livros
-                ON locacao.isbnlivro = livros.isbn`;
+                ON livros.isbn = locacao.isbnlivro`;
+        
+    const res = await user.query(sql);
+    let listaLocacao = res.rows.map(function (dados) {
+        return {
+            nome: dados.nome,
+            titulo: dados.titulo,
+            datadevolucao: dados.datadevolucao
+        };
+    })
 
     await user.end();
 
-    return sql.rows;
+    return listaLocacao;
 }
 
 async function devolucao(isbn) {

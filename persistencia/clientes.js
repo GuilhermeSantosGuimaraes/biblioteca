@@ -35,7 +35,7 @@ async function buscarPorMatricula(matricula) {
 
     await cliente.end();
 
-    return sql.rows;
+    return sql.rows[0];
 }
 
 

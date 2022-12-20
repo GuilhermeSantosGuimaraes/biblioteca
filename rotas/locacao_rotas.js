@@ -5,6 +5,6 @@ const locacaoController = require('../controller/locacao_controller');
 
 rota.post('/', locacaoController.locarLivro);
 rota.get('/', locacaoController.listar);
-rota.delete('/', locacaoController.devolucao);
+rota.delete('/:isbn', locacaoController.devolucao);
 
 module.exports = rota

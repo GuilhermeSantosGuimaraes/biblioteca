@@ -16,18 +16,26 @@ async function listar() {
 }
 
 async function buscarPorMatricula(matricula) {
-    if (! matricula) {
+    const cliente = await clientePersistencia.buscarPorMatricula(matricula)
+    if (!matricula) {
         throw {
             id:404,  mensagem : "Matricula não existe"
         };
     }
-    return await clientePersistencia.buscarPorMatricula(matricula);
+    return await cliente;
 }
 
 async function atualizar(matricula, cliente) {
-    const clienteAtualizar = await buscarPorMatricula(matricula);
-    if (clienteAtualizar) 
-        return await clientePersistencia.atualizar(matricula, cliente);
+    if (cliente && cliente.nome && cliente.telefone){
+        const clienteAtualizar = await buscarPorMatricula(matricula);
+        if (clienteAtualizar) 
+            return await clientePersistencia.atualizar(matricula, cliente);
+    }
+    else{
+        throw{
+            id: 400, mensagem: "Informações insuficientes"
+        }
+    }
 }
 
 async function deletar(matricula) {

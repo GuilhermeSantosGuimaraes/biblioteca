@@ -2,8 +2,9 @@ const locacaoNegocio = require('../negocio/locacao_negocio');
 
 
 async function locarLivro(req, res) {
+    const locar = req.body
     try{    
-        const locarLivros = await locacaoNegocio.locarLivro();
+        const locarLivros = await locacaoNegocio.locarLivro(locar);
         res.json(locarLivros);
     } catch (err) {
         if (err && err.id) {
