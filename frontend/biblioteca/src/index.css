@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    opacity: 0.7;
+    transition: 0.3s;
+    color: white;
+}
+
+a:hover{
+    opacity: 1;
+}
+
+p{
+    color: rgb(3, 3, 95);
+}

@@ -1,19 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import {createBrowserRoute, RouterProvider, Route} from "react-router-dom"
+import {createBrowserRouter, RouterProvider, Route} from "react-router-dom"
+
+//Paginas
+import Autores from "./routes/autores"
+import Livros from "./routes/livros"
+
 import './index.css'
 
 //OBJETO DE ROTEAMENTO
-const router = createBrowserRoute([
+const router = createBrowserRouter([
   {
     element: <App/>,
     children: [
       {
         path: "/",
+        element: <Autores/>
       },
       {
-        path: "/new",
+        path: "/livros",
+        element: <Livros/>
       }
     ]
   }
@@ -21,6 +28,6 @@ const router = createBrowserRoute([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
