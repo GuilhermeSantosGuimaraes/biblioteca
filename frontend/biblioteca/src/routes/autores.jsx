@@ -34,14 +34,20 @@ const autores = () => {
   return (
     <div>
       <h1>Lista de autores</h1>
-      {autores.length === 0 ? <p>Carregando....</p> : (
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>País de Origem</th>
+        </tr>
+        {autores.length === 0 ? <p>Carregando....</p> : (
         autores.map((autor) => (
-          <div className="autor" key={autor.id}>
-            <h2>{autor.nome}</h2>
-            <p>{autor.paisorigem}</p>
-          </div>
+          <tr className="autor" key={autor.id}>           
+            <td>{autor.nome}</td>
+            <td>{autor.paisorigem}</td>
+          </tr>
         ))
       )}
+      </table>
     </div>
   )
 }
