@@ -29,7 +29,7 @@ const livros = () => {
   }, [])
 
   return (
-    <div>
+    <div className='livros'>
       <h1>Lista de Livros</h1>
       <table>
         <tr>

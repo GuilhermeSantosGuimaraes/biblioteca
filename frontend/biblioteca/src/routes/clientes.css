@@ -1,18 +1,18 @@
-.livros tr, th, td{
+.clientes tr, th, td{
     border-bottom: 1px solid rgb(5, 3, 113);
     text-align: left;
 }
 
-.livros table{
-    width: 100%;
+.clientes table{
+    width: 40%;
 }
 
-.livros th{
+.clientes th{
+   width: 70px;
    font-weight: bold;
    font-size: 20px;
 }
 
-
-.livros h1{
+.clientes h1{
     margin-bottom: 20px;
 }

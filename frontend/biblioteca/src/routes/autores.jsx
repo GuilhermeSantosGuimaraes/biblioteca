@@ -29,7 +29,7 @@ const autores = () => {
   }, [])
 
   return (
-    <div>
+    <div className='autores'>
       <h1>Lista de autores</h1>
       <table>
         <tr>

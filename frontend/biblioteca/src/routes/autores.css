@@ -1,18 +1,18 @@
-tr, th, td{
+.autores tr, th, td{
     border-bottom: 1px solid rgb(5, 3, 113);
     text-align: left;
 }
 
-table{
+.autores table{
     width: 40%;
 }
 
-th{
+.autores th{
    width: 70px;
    font-weight: bold;
    font-size: 20px;
 }
 
-h1{
+.autores h1{
     margin-bottom: 20px;
 }

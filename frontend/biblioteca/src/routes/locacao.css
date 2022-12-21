@@ -1,18 +1,18 @@
-.livros tr, th, td{
+.locacao tr, th, td{
     border-bottom: 1px solid rgb(5, 3, 113);
     text-align: left;
 }
 
-.livros table{
+.locacao table{
     width: 100%;
 }
 
-.livros th{
+.locacao th{
    font-weight: bold;
    font-size: 20px;
 }
 
 
-.livros h1{
+.locacao h1{
     margin-bottom: 20px;
 }
