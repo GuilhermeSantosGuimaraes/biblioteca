@@ -37,6 +37,7 @@ const livros = () => {
           <th>Editora</th>
           <th>anopubli</th>
           <th>disponibilidade</th>
+          <th>Autor</th>
         </tr>
         {livros.length === 0 ? <p>Carregando....</p> : (
         livros.map((livro) => (
@@ -45,6 +46,7 @@ const livros = () => {
             <td>{livro.editora}</td>
             <td>{livro.anopubli}</td>
             <td>{livro.disponibilidade}</td>
+            <td>{livro.autor}</td>
           </tr>
         ))
       )}
