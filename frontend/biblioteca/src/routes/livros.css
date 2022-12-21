@@ -4,14 +4,14 @@ tr, th, td{
 }
 
 table{
-    width: 40%;
+    width: 100%;
 }
 
 th{
-   width: 70px;
    font-weight: bold;
    font-size: 20px;
 }
+
 
 h1{
     margin-bottom: 20px;

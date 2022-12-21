@@ -6,7 +6,8 @@
     background-color: #17191f;
 }
 
-.navBar h2 a{
+.navBar h2 {
+    color: white;
     opacity: 1;
 }
 

@@ -4,8 +4,8 @@ import App from './App'
 import {createBrowserRouter, RouterProvider, Route} from "react-router-dom"
 
 //Paginas
-import Autores from "./routes/autores"
-import Livros from "./routes/livros"
+import Autores from "./routes/autores";
+import Livros from "./routes/livros";
 
 import './index.css'
 
@@ -15,13 +15,13 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       {
-        path: "/",
+        path: "/autores",
         element: <Autores/>
       },
       {
         path: "/livros",
         element: <Livros/>
-      }
+      },
     ]
   }
 ])

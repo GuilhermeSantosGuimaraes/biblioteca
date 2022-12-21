@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from "axios";
+import axios from "axios"
 import { Link } from "react-router-dom"
 
-import "./autores.css"
+import "./autores.css";
 
 const autores = () => {
 
@@ -11,13 +11,10 @@ const autores = () => {
   //Chama os dados da API
   const getAutores = async()=> {
 
-    const api = "http://localhost:3000/api/autores"
-
     try {
-      const res = await axios.get(api);
+      const res = await axios.get("http://localhost:3000/api/autores");
       const data = res.data;
 
-      console.log(data)
       setAutores(data);
     } catch (err) {
       console.log(err)
